@@ -21,6 +21,7 @@ mkdir -p "$XDG_DATA_HOME"
 mkdir -p "$XDG_STATE_HOME"
 mkdir -p "$XDG_CACHE_HOME"
 mkdir -p "$ZDOTDIR"
+mkdir -p "$XDG_DATA_HOME/zsh" # for HISTFILE "$XDG_DATA_HOME/zsh/history
 ```
 
 ### Installation
