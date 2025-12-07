@@ -38,21 +38,23 @@ echo "✅ Environment configured"
 stow .
 echo "✅ Configs deployed to ~/.config"
 
-# Install Oh My Zsh
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
-    echo "🐚 Installing Oh My Zsh..."
+# Install Oh My Zsh (following XDG spec)
+ZSH_DIR="$ZDOTDIR/ohmyzsh"
+if [ ! -d "$ZSH_DIR" ]; then
+    echo "🐚 Installing Oh My Zsh to $ZSH_DIR..."
     # RUNZSH=no prevents running zsh after installation
     # KEEP_ZSHRC=yes keeps existing .zshrc without prompting
-    RUNZSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    # ZSH controls the installation directory
+    ZSH="$ZSH_DIR" RUNZSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     echo "✅ Oh My Zsh installed"
 else
     echo "✅ Oh My Zsh already installed"
 fi
 
-# Install zsh-autosuggestions
-ZSH_CUSTOM=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
+# Install zsh-autosuggestions (following XDG spec)
+ZSH_CUSTOM="$ZSH_DIR/custom"
 if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
-    echo "💡 Installing zsh-autosuggestions..."
+    echo "💡 Installing zsh-autosuggestions to $ZSH_CUSTOM/plugins..."
     git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
     echo "✅ zsh-autosuggestions installed"
 else
