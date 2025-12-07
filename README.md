@@ -18,3 +18,35 @@ cd ~/dotfiles
 ```
 
 3. Restart your terminal
+
+## Other Useful Packages
+
+### Window Management & Productivity
+- Rectangle
+- Clippy
+
+### Development Tools
+- Visual Studio Code
+- Neovim
+- Helix
+- jq
+
+### Search & Navigation
+- ripgrep
+- fzf
+- zoxide
+- atuin
+
+### File Management
+- Yazi
+
+### Virtualization
+- UTM
+
+### Media & Document Tools
+- FFmpeg
+- Poppler
+- resvg
+
+### Utilities
+- sevenzip
