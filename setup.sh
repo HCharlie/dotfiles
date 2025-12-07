@@ -4,12 +4,24 @@ set -e  # Exit on error
 
 echo "🚀 Starting dotfiles setup..."
 
+echo ""
+echo "============================================================================"
+echo "🔍 Checking prerequisites..."
+echo "============================================================================"
+
 # Check if Homebrew is installed
 if ! command -v brew &> /dev/null; then
     echo "❌ Homebrew not found. Please install Homebrew first:"
     echo "   /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
     exit 1
 fi
+
+echo "✅ Homebrew is installed"
+echo ""
+
+echo "============================================================================"
+echo "📂 Setting up Stow and deploying dotfiles..."
+echo "============================================================================"
 
 # Check if Stow is installed
 if ! command -v stow &> /dev/null; then
@@ -37,6 +49,11 @@ echo "✅ Environment configured"
 # Stow configs to ~/.config
 stow .
 echo "✅ Configs deployed to ~/.config"
+echo ""
+
+echo "============================================================================"
+echo "🐚 Setting up Oh My Zsh..."
+echo "============================================================================"
 
 # Install Oh My Zsh (following XDG spec)
 ZSH_DIR="$ZDOTDIR/ohmyzsh"
@@ -61,20 +78,42 @@ else
     echo "✅ zsh-autosuggestions already installed"
 fi
 
-# Install tmux and ghostty
-echo "📦 Installing tmux and ghostty..."
+echo "✅ Oh My Zsh setup complete!"
+echo ""
+
+echo "============================================================================"
+echo "📦 Installing Ghostty..."
+echo "============================================================================"
+if ! command -v ghostty &> /dev/null; then
+    brew install ghostty
+    echo "✅ Ghostty installed"
+else
+    echo "✅ Ghostty already installed"
+fi
+
+echo "✅ Ghostty setup complete!"
+echo ""
+
+echo "============================================================================"
+echo "🖥️  Setting up tmux and plugins..."
+echo "============================================================================"
+
+# Install tmux
 if ! command -v tmux &> /dev/null; then
+    echo "📦 Installing tmux..."
     brew install tmux
     echo "✅ tmux installed"
 else
     echo "✅ tmux already installed"
 fi
 
-if ! command -v ghostty &> /dev/null; then
-    brew install ghostty
-    echo "✅ ghostty installed"
+# Verify tmux installation
+if command -v tmux &> /dev/null; then
+    TMUX_VERSION=$(tmux -V)
+    echo "✅ tmux verification passed: $TMUX_VERSION"
 else
-    echo "✅ ghostty already installed"
+    echo "❌ tmux installation failed or not in PATH"
+    exit 1
 fi
 
 # Install Tmux Plugin Manager
@@ -88,10 +127,65 @@ else
     echo "✅ TPM already installed"
 fi
 
+# Verify TPM installation
+if [ -f "$TPM_DIR/tpm" ] && [ -f "$TPM_DIR/scripts/install_plugins.sh" ]; then
+    echo "✅ TPM verification passed"
+else
+    echo "❌ TPM installation incomplete - missing required files"
+    exit 1
+fi
+
+# Install plugins using TPM
+echo "🔄 Installing tmux plugins..."
+
+# TPM needs a running tmux server to read plugin declarations from tmux.conf
+# The install_plugins.sh script uses 'tmux show-option' commands internally
+echo "📝 Starting temporary tmux session to load configuration..."
+
+# Kill any existing tmux server to ensure clean state
+tmux kill-server 2>/dev/null || true
+
+# Start a detached tmux session
+# When tmux starts, it automatically:
+#   1. Reads ~/.config/tmux/tmux.conf
+#   2. Parses 'set -g @plugin' declarations
+#   3. Executes 'run tpm' at the end (which loads already-installed plugins)
+tmux new-session -d -s setup_session 2>/dev/null || {
+    echo "⚠️  Warning: Could not create tmux session, but continuing..."
+}
+
+# Give tmux a moment to initialize and read the config
+sleep 1
+
+# Now run TPM's install script to download and install the declared plugins
+# This script queries the running tmux server for the @plugin declarations
+if [ -f "$TPM_DIR/scripts/install_plugins.sh" ]; then
+    echo "📦 Downloading and installing plugins..."
+    "$TPM_DIR/scripts/install_plugins.sh" || {
+        echo "⚠️  Warning: TPM plugin installation encountered issues"
+    }
+    echo "✅ Tmux plugins installed"
+else
+    echo "⚠️  Warning: TPM install script not found"
+fi
+
+# Verify plugin installation
+PLUGIN_COUNT=$(find "$HOME/.local/share/tmux/plugins" -mindepth 1 -maxdepth 1 -type d | wc -l)
+if [ "$PLUGIN_COUNT" -gt 1 ]; then
+    echo "✅ Plugin verification passed: $PLUGIN_COUNT plugins installed"
+else
+    echo "⚠️  Warning: Expected multiple plugins but found $PLUGIN_COUNT"
+fi
+
+# Clean up the setup session
+tmux kill-session -t setup_session 2>/dev/null || true
+
+echo "✅ Tmux setup complete!"
 echo ""
+
+echo "============================================================================"
 echo "🎉 Setup complete!"
+echo "============================================================================"
 echo ""
 echo "📝 Next steps:"
 echo "   1. Restart your terminal for environment variables to take effect"
-echo "   2. In tmux, press 'prefix + r' to reload config"
-echo "   3. In tmux, press 'prefix + I' to install plugins via TPM"

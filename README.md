@@ -18,5 +18,3 @@ cd ~/dotfiles
 ```
 
 3. Restart your terminal
-
-4. In tmux: `prefix + r` to reload config, `prefix + I` to install plugins
