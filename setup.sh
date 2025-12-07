@@ -24,17 +24,19 @@ echo "📂 Deploying dotfiles with Stow..."
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR"
 
-# Stow configs to ~/.config
-if [ -d ".config" ]; then
-    stow .
-    echo "✅ Configs deployed to ~/.config"
-fi
-
 # Stow home files (like .zshenv)
-if [ -d "home" ]; then
-    stow -t ~ --dotfiles home
-    echo "✅ Home dotfiles deployed to ~"
-fi
+stow -t ~ --dotfiles home
+echo "✅ Home dotfiles deployed to ~"
+
+# Source .zshenv to create XDG directories immediately
+# This ensures they exist before the next stow command
+echo "📁 Setting up environment and creating directories..."
+source "$HOME/.zshenv"
+echo "✅ Environment configured"
+
+# Stow configs to ~/.config
+stow .
+echo "✅ Configs deployed to ~/.config"
 
 # Install Oh My Zsh
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
