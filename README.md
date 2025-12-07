@@ -21,32 +21,52 @@ cd ~/dotfiles
 
 ## Other Useful Packages
 
-### Window Management & Productivity
-- Rectangle
-- Clippy
+### Desktop Applications
+- **Rectangle** - window management
+- **Clipy** - clipboard management
+- **Hidden Bar** - menu bar organization
+- **Stats** - system monitor in menu bar
+- **KeyCastr** - keystroke visualizer
+- **Visual Studio Code** - code editor
+- **Zed** - modern code editor
+- **Warp** - AI-powered terminal
+- **Obsidian** - knowledge base
+- **1Password** - password manager
+- **Docker Desktop** - containers
+- **UTM** - virtual machines
+- **Ollama** - local LLM runtime
+- **DevToys** - developer utilities
+- **Kreya** - API client
+- **RustDesk** - remote desktop
+- **Hammerspoon** - macOS automation
+- **KindaVim** - vim motions for macOS
 
-### Development Tools
-- Visual Studio Code
-- Neovim
-- Helix
-- jq
-
-### Search & Navigation
-- ripgrep
-- fzf
-- zoxide
-- atuin
-
-### File Management
-- Yazi
-
-### Virtualization
-- UTM
-
-### Media & Document Tools
-- FFmpeg
-- Poppler
-- resvg
-
-### Utilities
-- sevenzip
+### Command-Line Tools
+- **bat** - better cat
+- **eza** - modern ls
+- **ripgrep** - fast search
+- **fzf** - fuzzy finder
+- **fd** - simple find
+- **zoxide** - smart cd
+- **atuin** - shell history
+- **yazi** - file manager
+- **tree** - directory viewer
+- **neovim** - text editor
+- **helix** - text editor
+- **jj** - version control (Jujutsu)
+- **lazygit** - git TUI
+- **delta** - git diff viewer
+- **btop** - process viewer
+- **dust** - disk usage
+- **duf** - disk usage
+- **tldr** - simplified man pages
+- **tmux** - terminal multiplexer
+- **zellij** - terminal workspace
+- **jq** - JSON processor
+- **ffmpeg** - media processing
+- **poppler** - PDF tools
+- **resvg** - SVG renderer
+- **sevenzip** - archiver
+- **dive** - Docker image explorer
+- **uv** - fast Python package manager
+- **it-tools** - dev utilities
