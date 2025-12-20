@@ -1,0 +1,21 @@
+theme = "catppuccin_mocha"
+
+[editor]
+line-number = "relative"
+cursorline = true
+color-modes = true
+# Show diagnostics below the end of any line that has one
+end-of-line-diagnostics = "warning"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.indent-guides]
+render = true
+
+[editor.inline-diagnostics]
+# Show warnings on the cursor line
+cursor-line = "warning"
+
