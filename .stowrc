@@ -5,3 +5,4 @@
 --ignore=setup.sh
 --dotfiles
 --no-folding
+--adopt
