@@ -70,3 +70,27 @@ cd ~/dotfiles
 - **dive** - Docker image explorer
 - **uv** - fast Python package manager
 - **it-tools** - dev utilities
+
+
+## Linux-Specific Tools
+
+- **Hyprland** - dynamic tiling Wayland compositor
+polybar
+- **Rofi** - application launcher and dmenu replacement
+
+### System Utilities
+- **Waybar** - customizable Wayland bar
+- **Dunst** - lightweight notification daemon
+- **SwayNC** - notification center for Sway/Wayland
+- **Hyprpaper** - wallpaper utility for Hyprland
+- **wl-clipboard** - Wayland clipboard utilities
+- **Grim** - screenshot utility for Wayland
+- **Slurp** - select region for screenshots
+- **witr** - why is this running
+
+### what to do next (just ideas)
+1. sshconfig
+1. other tools with configs, like atuin, neovim, lazynvim, git, kindavim, aerospace, sketchybar,starship
+1. linux tools
+1. gh github cli
+1. direnv for environment variable management
