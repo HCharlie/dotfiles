@@ -76,6 +76,7 @@ plugins=(
 	git
 	zsh-autosuggestions
     kube-ps1
+    direnv
 )
 
 # User configuration
