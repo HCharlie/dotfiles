@@ -10,3 +10,6 @@ macos-option-as-alt = true
 # background-blur-radius = 20 
 
 scrollback-limit = 20000
+
+desktop-notifications = true
+
