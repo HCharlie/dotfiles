@@ -128,16 +128,16 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-# Load custom functions via autoload
-fpath=(~/.config/zsh/functions $fpath)
-for fn in ~/.config/zsh/functions/[^_]*; do
+# Load custom functions and hooks via autoload
+fpath=(~/.config/zsh/functions ~/.config/zsh/hooks $fpath)
+for fn in ~/.config/zsh/functions/*; do
   autoload -Uz "${fn:t}"
 done
 
 # Auto-fetch when entering a new git repo
-autoload -Uz add-zsh-hook
-source ~/.config/zsh/hooks/auto_git_sync
-add-zsh-hook chpwd auto_git_sync
+# autoload -Uz add-zsh-hook
+# autoload -Uz auto_git_sync
+# add-zsh-hook chpwd auto_git_sync
 
 source ~/.zshrc.local
 
