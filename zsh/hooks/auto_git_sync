@@ -1,0 +1,21 @@
+local git_root
+git_root=$(git rev-parse --show-toplevel 2>/dev/null)
+
+# Only run if we just entered a NEW repo
+if [[ -n "$git_root" && "$git_root" != "$_LAST_GIT_ROOT" ]]; then
+  local current_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+  local default_branch="main"
+  if ! git show-ref --verify --quiet refs/heads/main; then
+    default_branch="master"
+  fi
+
+  if [[ "$current_branch" == "$default_branch" && -z "$(git status --porcelain 2>/dev/null)" ]]; then
+    # Clean default branch — safe to pull in background
+    git pull --quiet &!
+  else
+    # Feature branch or dirty tree — just fetch
+    git fetch --quiet &!
+  fi
+fi
+
+_LAST_GIT_ROOT="$git_root"

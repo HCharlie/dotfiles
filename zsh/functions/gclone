@@ -1,0 +1,19 @@
+local url="$1"
+# Strip protocol, trailing .git, and trailing slashes
+local path="${url#https://}"
+path="${path#http://}"
+path="${path#git@}"
+path="${path%.git}"
+path="${path%/}"
+# Handle git@github.com:user/repo SSH format
+path="${path/://}"
+
+local target="$HOME/src/$path"
+
+if [[ -d "$target" ]]; then
+  echo "Already exists: $target"
+  return 0
+fi
+
+/bin/mkdir -p "${target%/*}"
+/usr/bin/git clone "$url" "$target"

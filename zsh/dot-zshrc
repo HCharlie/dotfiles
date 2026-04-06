@@ -128,35 +128,16 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-
-# # Function to auto-pull when entering a new Git repo
-# _auto_git_pull() {
-#   # Get the absolute path of the current Git root
-#   local git_root
-#   git_root=$(git rev-parse --show-toplevel 2>/dev/null)
-#   
-#   # Only pull if we are in a repo and it's DIFFERENT from the last one we were in
-#   if [[ -n "$git_root" && "$git_root" != "$_LAST_GIT_ROOT" ]]; then
-#     echo "📂 Switched to repo: ${git_root##*/}. Updating..."
-#     git pull
-#   fi
-#   
-#   # Update the tracker
-#   _LAST_GIT_ROOT="$git_root"
-# }
-# 
-# # Load the hook to run whenever the directory changes
-# autoload -U add-zsh-hook
-# add-zsh-hook chpwd _auto_git_pull
-
-
-
-
-
-# Load custom functions
-for f in ~/.config/zsh/functions/*.zsh; do
-  [[ -f "$f" ]] && source "$f"
+# Load custom functions via autoload
+fpath=(~/.config/zsh/functions $fpath)
+for fn in ~/.config/zsh/functions/[^_]*; do
+  autoload -Uz "${fn:t}"
 done
+
+# Auto-fetch when entering a new git repo
+autoload -Uz add-zsh-hook
+source ~/.config/zsh/hooks/auto_git_sync
+add-zsh-hook chpwd auto_git_sync
 
 source ~/.zshrc.local
 
