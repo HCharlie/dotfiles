@@ -184,6 +184,20 @@ echo "✅ Tmux setup complete!"
 echo ""
 
 echo "============================================================================"
+echo "📝 Setting up Neovim config..."
+echo "============================================================================"
+
+NVIM_DIR="$HOME/.config/nvim"
+if [ ! -d "$NVIM_DIR" ]; then
+    echo "📦 Cloning Neovim config..."
+    git clone https://github.com/HCharlie/kickstart.nvim "$NVIM_DIR"
+    echo "✅ Neovim config cloned"
+else
+    echo "✅ Neovim config already exists"
+fi
+
+echo ""
+echo "============================================================================"
 echo "🎉 Setup complete!"
 echo "============================================================================"
 echo ""
