@@ -6,3 +6,8 @@ set shiftwidth=4
 set expandtab
 set hlsearch
 set rnu
+
+" for showing vim yanked content in Clipy on MacOS 
+set clipboard=unnamed
+
+
