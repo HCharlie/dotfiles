@@ -1,5 +1,10 @@
 # https://github.com/catppuccin/ghostty
-theme = catppuccin-mocha
+# Light theme
+# theme = Catppuccin Latte
+# Dark theme
+# theme = Catppuccin Mocha
+theme = dark:Catppuccin Mocha,light:Catppuccin Latte
+
 font-size = 15
 background-blur-radius = 20
 mouse-hide-while-typing = true
