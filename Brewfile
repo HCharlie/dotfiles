@@ -6,7 +6,6 @@
 # ---------------------------------------------------------------------------
 # Bootstrap (also referenced from setup.sh)
 # ---------------------------------------------------------------------------
-brew "git"
 brew "gh"
 brew "stow"
 
@@ -16,18 +15,17 @@ brew "stow"
 brew "atuin"
 
 # ---------------------------------------------------------------------------
-# Editors
+# Editor
 # ---------------------------------------------------------------------------
 brew "neovim"
-brew "helix"
 
 # ---------------------------------------------------------------------------
-# Terminal multiplexers
+# Terminal multiplexer
 # ---------------------------------------------------------------------------
 brew "tmux"
 
 # ---------------------------------------------------------------------------
-# Modern coreutils replacements
+# Modern CLI utilities
 # ---------------------------------------------------------------------------
 brew "bat"        # cat with syntax highlight
 brew "eza"        # ls replacement
@@ -36,54 +34,35 @@ brew "fd"         # find
 brew "fzf"        # fuzzy finder
 brew "zoxide"     # smart cd
 brew "tree"       # directory viewer
+brew "yazi"       # TUI file manager
+brew "btop"       # process/system monitor
 brew "duf"        # df with UI
 brew "dust"       # du replacement
-brew "btop"       # process/system monitor
-brew "tldr"       # short man pages
-brew "jq"         # JSON processor
-brew "yazi"       # TUI file manager
+brew "watch"      # run a command periodically
 
 # ---------------------------------------------------------------------------
 # Git tooling
 # ---------------------------------------------------------------------------
-brew "lazygit"
-brew "git-delta" # nicer diffs
-brew "jj"        # jujutsu
+brew "git-delta"  # nicer diffs
 
 # ---------------------------------------------------------------------------
-# Languages / package managers
+# Markdown / docs
 # ---------------------------------------------------------------------------
-brew "uv"        # fast Python package manager
+brew "glow"       # render markdown in terminal
 
 # ---------------------------------------------------------------------------
-# Media / utilities
+# Environment management
 # ---------------------------------------------------------------------------
-brew "ffmpeg"
-brew "poppler"
-brew "resvg"
-brew "sevenzip"
-
-# ---------------------------------------------------------------------------
-# Container tooling
-# ---------------------------------------------------------------------------
-brew "dive"      # explore Docker image layers
+brew "direnv"     # per-directory env vars
 
 # ---------------------------------------------------------------------------
 # GUI apps (casks)
 # ---------------------------------------------------------------------------
 cask "ghostty"
-cask "rectangle"
 cask "clipy"
-cask "hiddenbar"
+cask "rectangle"
 cask "stats"
 cask "keycastr"
-cask "visual-studio-code"
-cask "zed"
-cask "warp"
 cask "obsidian"
-cask "1password"
-cask "devtoys"
 cask "kreya"
-cask "rustdesk"
-cask "hammerspoon"
-cask "kindavim"
+cask "utm"
