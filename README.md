@@ -27,6 +27,7 @@ cd "$DOTFILES_DIR"
 ## Design Notes
 
 - [zsh layout](zsh/README.md) — kernel rc vs. `~/.zshrc` sandbox, why this split, migration tips.
+- [atuin setup + history migration](atuin/README.md) — first-time setup, cross-machine migration order, key backup, common gotchas.
 
 ## Managing Tools (Brewfile)
 
@@ -60,28 +61,8 @@ prompt, not an instruction to uninstall.
 
 ## Post-Install
 
-### Atuin (shell history sync)
-
-History is local-only by default. To sync across machines:
-
-```bash
-# First machine — create account
-atuin register -u <username> -e <email>
-
-# Other machines — log in with the same account
-atuin login -u <username>
-
-# Import existing shell history (run once per machine)
-atuin import auto
-
-# Push local history up
-atuin sync
-```
-
-Notes:
-- Sync server defaults to `https://api.atuin.sh`. Self-host via `sync_address` in `atuin/config.toml` if needed.
-- Encryption key lives at `~/.local/share/atuin/key` — back it up; without it, synced history cannot be decrypted on a new machine.
-- After login on a new machine, run `atuin key` on an existing machine and `atuin key set <key>` on the new one to share the key.
+- **Atuin** — shell history sync setup, key backup, and cross-machine
+  migration steps live in [`atuin/README.md`](atuin/README.md).
 
 ## What's Installed
 
