@@ -27,6 +27,36 @@ cd "$DOTFILES_DIR"
 
 - [zsh layout](zsh/README.md) — kernel rc vs. `~/.zshrc` sandbox, why this split, migration tips.
 
+## Managing Tools (Brewfile)
+
+`Brewfile` declares the core tools this dotfiles repo wants on every
+machine — the things you'd be unhappy without. `setup.sh` applies it
+via `brew bundle`.
+
+Anything else you `brew install` ad-hoc is intentionally NOT tracked.
+The Brewfile is curated, not exhaustive.
+
+```bash
+# Apply (what setup.sh does):
+brew bundle --file=Brewfile
+
+# Try a new tool without committing to it:
+brew install some-cli                    # ad-hoc, untracked
+
+# Decide later — promote to Brewfile (edit + commit) or uninstall.
+
+# Drift audit (what's installed but not in Brewfile)?
+brew bundle cleanup --file=Brewfile      # list only
+
+# Regenerate from current state (rare — defeats curation):
+brew bundle dump --force --describe --file=/tmp/Brewfile.dump
+```
+
+`brew bundle cleanup` will list every untracked install as drift —
+that's expected here; the curated Brewfile is intentionally narrow.
+Treat the cleanup output as a "review what you've accumulated"
+prompt, not an instruction to uninstall.
+
 ## Post-Install
 
 ### Atuin (shell history sync)
