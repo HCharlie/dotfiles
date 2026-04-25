@@ -11,6 +11,12 @@ echo "==========================================================================
 echo "🔍 Checking prerequisites..."
 echo "============================================================================"
 
+# Apple Silicon installs Homebrew at /opt/homebrew, which isn't on the
+# default macOS PATH until the user restarts the shell. Source shellenv
+# directly when the binary is present so a fresh `brew install` followed
+# by `./setup.sh` works in the same session.
+[ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+
 if ! command -v brew &> /dev/null; then
     echo "❌ Homebrew not found. Install it first:"
     echo "   /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
