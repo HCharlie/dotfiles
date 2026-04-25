@@ -105,7 +105,8 @@ else
 fi
 
 echo "✅ Atuin setup complete!"
-echo "ℹ️  Run 'atuin login -u <user>' or 'atuin register' to enable sync (per-machine)."
+echo "ℹ️  To enable cross-machine history sync, see README.md → Post-Install → Atuin."
+echo "   Quick: 'atuin register' (first machine) or 'atuin login -u <user>' + 'atuin import auto'."
 echo ""
 
 echo "============================================================================"
