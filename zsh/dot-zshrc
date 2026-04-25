@@ -139,5 +139,10 @@ done
 # autoload -Uz auto_git_sync
 # add-zsh-hook chpwd auto_git_sync
 
+# atuin shell history
+if command -v atuin &> /dev/null; then
+  eval "$(atuin init zsh)"
+fi
+
 source ~/.zshrc.local
 

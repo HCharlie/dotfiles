@@ -95,6 +95,20 @@ echo "✅ Ghostty setup complete!"
 echo ""
 
 echo "============================================================================"
+echo "📜 Installing Atuin..."
+echo "============================================================================"
+if ! command -v atuin &> /dev/null; then
+    brew install atuin
+    echo "✅ Atuin installed"
+else
+    echo "✅ Atuin already installed"
+fi
+
+echo "✅ Atuin setup complete!"
+echo "ℹ️  Run 'atuin login -u <user>' or 'atuin register' to enable sync (per-machine)."
+echo ""
+
+echo "============================================================================"
 echo "🖥️  Setting up tmux and plugins..."
 echo "============================================================================"
 
