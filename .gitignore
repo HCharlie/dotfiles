@@ -1,4 +1,1 @@
 .DS_Store
-
-# Work-specific Brewfile lives outside git. See Brewfile.work.example.
-Brewfile.work

@@ -27,65 +27,35 @@ cd "$DOTFILES_DIR"
 
 - [zsh layout](zsh/README.md) — kernel rc vs. `~/.zshrc` sandbox, why this split, migration tips.
 
-## Managing Tools (Brewfile, tiered)
+## Managing Tools (Brewfile)
 
-Tool installation is split across three tiers so the core stays stable
-while experiments and work-specific tools have looser homes.
+`Brewfile` declares the core tools this dotfiles repo wants on every
+machine — the things you'd be unhappy without. `setup.sh` applies it
+via `brew bundle`.
 
-| File | Purpose | Tracked in git? |
-|---|---|---|
-| `Brewfile` | Core, certain tools. Stable, rarely changes. | ✅ |
-| `Brewfile.experimental` | Trial / evaluation tools. Expected to churn. Promote to `Brewfile` once proven, remove if abandoned. | ✅ |
-| `Brewfile.work` | Company-specific tools, private taps, sensitive items. Lives only on the machines that need it. | ❌ (gitignored) |
-| `Brewfile.work.example` | Template showing how to structure `Brewfile.work`. | ✅ |
-
-`setup.sh` applies all three in order. Tiers 2 and 3 are guarded with
-`[[ -f ... ]]` so missing files are simply skipped.
-
-Day-to-day workflow:
+Anything else you `brew install` ad-hoc is intentionally NOT tracked.
+The Brewfile is curated, not exhaustive.
 
 ```bash
-# Apply the whole stack (what setup.sh does).
+# Apply (what setup.sh does):
 brew bundle --file=Brewfile
-[[ -f Brewfile.experimental ]] && brew bundle --file=Brewfile.experimental
-[[ -f Brewfile.work         ]] && brew bundle --file=Brewfile.work
 
-# Trying out a new tool — add to Brewfile.experimental, apply.
-echo 'brew "tldr"' >> Brewfile.experimental
-brew bundle --file=Brewfile.experimental
+# Try a new tool without committing to it:
+brew install some-cli                    # ad-hoc, untracked
 
-# After a few weeks, decide: promote to Brewfile, or remove.
+# Decide later — promote to Brewfile (edit + commit) or uninstall.
 
-# Drift audit (anything installed but NOT covered by ANY of the three?):
-brew bundle cleanup --file=Brewfile
-brew bundle cleanup --file=Brewfile.experimental
-brew bundle cleanup --file=Brewfile.work    # if present
+# Drift audit (what's installed but not in Brewfile)?
+brew bundle cleanup --file=Brewfile      # list only
 
-# Regenerate from current state (rarely; defeats curation):
-brew bundle dump --force --describe --file=Brewfile.dump
+# Regenerate from current state (rare — defeats curation):
+brew bundle dump --force --describe --file=/tmp/Brewfile.dump
 ```
 
-### Setting up a work machine
-
-```bash
-cp Brewfile.work.example Brewfile.work
-$EDITOR Brewfile.work        # add company taps + tools
-./setup.sh
-```
-
-`Brewfile.work` is gitignored, so company taps and private SSH-only
-taps stay off GitHub.
-
-### Why tiers
-
-- **Stability isolation.** A flaky experimental tool can't break a
-  fresh-machine bootstrap — it lives in tier 2.
-- **Audit clarity.** `cat Brewfile` always shows what you actually
-  rely on. `cat Brewfile.experimental` shows what you're testing.
-- **Privacy.** Work-only taps (e.g. `git@github.com:company/...`)
-  never enter the public repo.
-- **Promotion path.** `experimental` → `Brewfile` is just a one-line
-  move once a tool earns its keep.
+`brew bundle cleanup` will list every untracked install as drift —
+that's expected here; the curated Brewfile is intentionally narrow.
+Treat the cleanup output as a "review what you've accumulated"
+prompt, not an instruction to uninstall.
 
 ## Post-Install
 
