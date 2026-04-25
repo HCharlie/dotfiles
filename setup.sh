@@ -199,8 +199,16 @@ echo "✅ Tmux setup complete!"
 echo ""
 
 echo "============================================================================"
-echo "📝 Setting up Neovim config..."
+echo "📝 Setting up Neovim..."
 echo "============================================================================"
+
+if ! command -v nvim &> /dev/null; then
+    echo "📦 Installing Neovim..."
+    brew install neovim
+    echo "✅ Neovim installed"
+else
+    echo "✅ Neovim already installed"
+fi
 
 NVIM_DIR="$HOME/.config/nvim"
 if [ ! -d "$NVIM_DIR" ]; then
