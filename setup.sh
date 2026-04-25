@@ -21,16 +21,19 @@ echo "✅ Homebrew is installed"
 echo ""
 
 echo "============================================================================"
-echo "📦 Installing tools and apps from Brewfile..."
+echo "📂 Bootstrapping Stow + deploying dotfiles..."
 echo "============================================================================"
 
-brew bundle --file="$SCRIPT_DIR/Brewfile"
-echo "✅ Brewfile bundle applied"
-echo ""
-
-echo "============================================================================"
-echo "📂 Deploying dotfiles with Stow..."
-echo "============================================================================"
+# Bootstrap: install Stow up-front so we can deploy configs BEFORE the
+# full Brewfile bundle runs. With symlinks already in place, any tool
+# that creates a default config on first run will see an existing
+# (curated) file and skip writing defaults.
+if ! command -v stow &> /dev/null; then
+    echo "📦 Installing Stow (bootstrap)..."
+    brew install stow
+else
+    echo "✅ Stow already installed"
+fi
 
 cd "$SCRIPT_DIR"
 
@@ -38,14 +41,22 @@ cd "$SCRIPT_DIR"
 stow -t ~ --dotfiles home
 echo "✅ Home dotfiles deployed to ~"
 
-# Source .zshenv to create XDG directories immediately
+# Source .zshenv so XDG paths exist before downstream tools look for them.
 echo "📁 Setting up environment and creating directories..."
 source "$HOME/.zshenv"
 echo "✅ Environment configured"
 
-# Stow configs to ~/.config
+# Stow configs to ~/.config (symlinks now in place before tool first-runs)
 stow .
 echo "✅ Configs deployed to ~/.config"
+echo ""
+
+echo "============================================================================"
+echo "📦 Installing tools and apps from Brewfile..."
+echo "============================================================================"
+
+brew bundle --file="$SCRIPT_DIR/Brewfile"
+echo "✅ Brewfile bundle applied"
 echo ""
 
 echo "============================================================================"
