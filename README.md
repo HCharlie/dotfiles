@@ -23,6 +23,10 @@ cd "$DOTFILES_DIR"
 
 3. Restart your terminal
 
+## Design Notes
+
+- [zsh layout](zsh/README.md) — kernel rc vs. `~/.zshrc` sandbox, why this split, migration tips.
+
 ## Post-Install
 
 ### Atuin (shell history sync)

@@ -3,6 +3,7 @@
 --ignore=DS_Store
 --ignore=home
 --ignore=setup.sh
+--ignore=README.md
 --dotfiles
 --no-folding
 --adopt
