@@ -126,8 +126,6 @@ tmux kill-server 2>/dev/null || true
 #   1. reads ~/.config/tmux/tmux.conf
 #   2. parses `set -g @plugin '...'` declarations
 #   3. executes `run tpm` at the end (loads any already-installed plugins)
-# install_plugins.sh below then queries this running server via
-# `tmux show-option` to learn which @plugin lines to install.
 tmux new-session -d -s setup_session 2>/dev/null || {
     echo "⚠️  Warning: Could not create tmux session, but continuing..."
 }
@@ -136,6 +134,9 @@ tmux new-session -d -s setup_session 2>/dev/null || {
 # install_plugins.sh starts querying it.
 sleep 1
 
+# Now run TPM's install script to download and install the declared
+# plugins. The script queries the running tmux server (started above)
+# via `tmux show-option` to learn the @plugin declarations.
 if [ -f "$TPM_DIR/scripts/install_plugins.sh" ]; then
     echo "📦 Downloading and installing plugins..."
     "$TPM_DIR/scripts/install_plugins.sh" || {
@@ -146,6 +147,8 @@ else
     echo "⚠️  Warning: TPM install script not found"
 fi
 
+# Verify plugin installation — TPM itself counts as one entry, so a
+# successful run leaves multiple directories under tmux/plugins.
 PLUGIN_COUNT=$(find "$HOME/.local/share/tmux/plugins" -mindepth 1 -maxdepth 1 -type d | wc -l)
 if [ "$PLUGIN_COUNT" -gt 1 ]; then
     echo "✅ Plugin verification passed: $PLUGIN_COUNT plugins installed"
@@ -153,6 +156,7 @@ else
     echo "⚠️  Warning: Expected multiple plugins but found $PLUGIN_COUNT"
 fi
 
+# Clean up the temporary tmux session used to bootstrap TPM.
 tmux kill-session -t setup_session 2>/dev/null || true
 
 echo "✅ Tmux setup complete!"
