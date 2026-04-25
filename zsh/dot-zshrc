@@ -144,5 +144,7 @@ if command -v atuin &> /dev/null; then
   eval "$(atuin init zsh)"
 fi
 
-source ~/.zshrc.local
+# Per-machine overrides, secrets, and tool installer dumping ground.
+# Untracked by git. Loaded last so it can override anything above.
+[[ -f ~/.zshrc ]] && source ~/.zshrc
 
