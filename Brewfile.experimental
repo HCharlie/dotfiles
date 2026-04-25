@@ -1,0 +1,16 @@
+# Brewfile.experimental — trial/evaluation tier.
+#
+# Tools here are being evaluated. Promote to `Brewfile` when proven,
+# remove if abandoned. Expect this file to churn more than `Brewfile`.
+#
+# Apply with:        brew bundle --file=Brewfile.experimental
+# Audit drift with:  brew bundle cleanup --file=Brewfile.experimental
+# (setup.sh applies this file automatically if present.)
+
+# Examples — uncomment / add as you trial them:
+# brew "helix"      # post-modern modal editor
+# brew "lazygit"    # git TUI
+# brew "jj"         # jujutsu VCS
+# brew "tldr"       # short man pages
+# brew "dive"       # docker layer explorer
+# brew "uv"         # fast python package mgr

@@ -27,35 +27,65 @@ cd "$DOTFILES_DIR"
 
 - [zsh layout](zsh/README.md) — kernel rc vs. `~/.zshrc` sandbox, why this split, migration tips.
 
-## Managing Tools (Brewfile)
+## Managing Tools (Brewfile, tiered)
 
-`Brewfile` is the declarative manifest of every CLI tool and GUI cask
-this dotfiles repo wants on a machine. `setup.sh` runs
-`brew bundle --file=Brewfile` so a fresh machine ends up with exactly
-those packages installed.
+Tool installation is split across three tiers so the core stays stable
+while experiments and work-specific tools have looser homes.
+
+| File | Purpose | Tracked in git? |
+|---|---|---|
+| `Brewfile` | Core, certain tools. Stable, rarely changes. | ✅ |
+| `Brewfile.experimental` | Trial / evaluation tools. Expected to churn. Promote to `Brewfile` once proven, remove if abandoned. | ✅ |
+| `Brewfile.work` | Company-specific tools, private taps, sensitive items. Lives only on the machines that need it. | ❌ (gitignored) |
+| `Brewfile.work.example` | Template showing how to structure `Brewfile.work`. | ✅ |
+
+`setup.sh` applies all three in order. Tiers 2 and 3 are guarded with
+`[[ -f ... ]]` so missing files are simply skipped.
 
 Day-to-day workflow:
 
 ```bash
-# Add a new tool: edit Brewfile, then re-run bundle.
+# Apply the whole stack (what setup.sh does).
 brew bundle --file=Brewfile
+[[ -f Brewfile.experimental ]] && brew bundle --file=Brewfile.experimental
+[[ -f Brewfile.work         ]] && brew bundle --file=Brewfile.work
 
-# What's listed but missing?
-brew bundle check --file=Brewfile
+# Trying out a new tool — add to Brewfile.experimental, apply.
+echo 'brew "tldr"' >> Brewfile.experimental
+brew bundle --file=Brewfile.experimental
 
-# What's installed but NOT in Brewfile (drift audit)?
+# After a few weeks, decide: promote to Brewfile, or remove.
+
+# Drift audit (anything installed but NOT covered by ANY of the three?):
 brew bundle cleanup --file=Brewfile
+brew bundle cleanup --file=Brewfile.experimental
+brew bundle cleanup --file=Brewfile.work    # if present
 
-# Actually uninstall the drift after reviewing:
-brew bundle cleanup --force --file=Brewfile
-
-# Regenerate Brewfile from current system state (rarely — defeats curation):
-brew bundle dump --force --describe --file=Brewfile
+# Regenerate from current state (rarely; defeats curation):
+brew bundle dump --force --describe --file=Brewfile.dump
 ```
 
-Experimental / one-off `brew install <tool>` keeps working — it just
-won't be tracked. `brew bundle cleanup` will surface it next audit so
-you can decide: promote to Brewfile, or uninstall.
+### Setting up a work machine
+
+```bash
+cp Brewfile.work.example Brewfile.work
+$EDITOR Brewfile.work        # add company taps + tools
+./setup.sh
+```
+
+`Brewfile.work` is gitignored, so company taps and private SSH-only
+taps stay off GitHub.
+
+### Why tiers
+
+- **Stability isolation.** A flaky experimental tool can't break a
+  fresh-machine bootstrap — it lives in tier 2.
+- **Audit clarity.** `cat Brewfile` always shows what you actually
+  rely on. `cat Brewfile.experimental` shows what you're testing.
+- **Privacy.** Work-only taps (e.g. `git@github.com:company/...`)
+  never enter the public repo.
+- **Promotion path.** `experimental` → `Brewfile` is just a one-line
+  move once a tool earns its keep.
 
 ## Post-Install
 

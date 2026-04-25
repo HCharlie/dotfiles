@@ -52,11 +52,26 @@ echo "✅ Configs deployed to ~/.config"
 echo ""
 
 echo "============================================================================"
-echo "📦 Installing tools and apps from Brewfile..."
+echo "📦 Installing tools and apps from Brewfile (tiered)..."
 echo "============================================================================"
 
+# Tier 1: core, certain tools (always applied).
 brew bundle --file="$SCRIPT_DIR/Brewfile"
-echo "✅ Brewfile bundle applied"
+echo "✅ Brewfile (core) applied"
+
+# Tier 2: experimental / evaluation tools (apply if present).
+if [ -f "$SCRIPT_DIR/Brewfile.experimental" ]; then
+    brew bundle --file="$SCRIPT_DIR/Brewfile.experimental"
+    echo "✅ Brewfile.experimental applied"
+fi
+
+# Tier 3: work-specific tools (untracked, apply if present).
+if [ -f "$SCRIPT_DIR/Brewfile.work" ]; then
+    brew bundle --file="$SCRIPT_DIR/Brewfile.work"
+    echo "✅ Brewfile.work applied"
+else
+    echo "ℹ️  No Brewfile.work found. Copy Brewfile.work.example if you need work-specific tools."
+fi
 echo ""
 
 echo "============================================================================"

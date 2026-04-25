@@ -4,6 +4,7 @@
 --ignore=home
 --ignore=setup.sh
 --ignore=README.md
+--ignore=Brewfile.*
 --ignore=Brewfile
 --dotfiles
 --no-folding
