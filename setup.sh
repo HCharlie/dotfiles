@@ -41,7 +41,9 @@ cd "$SCRIPT_DIR"
 stow -t ~ --dotfiles home
 echo "✅ Home dotfiles deployed to ~"
 
-# Source .zshenv so XDG paths exist before downstream tools look for them.
+# Source .zshenv to create XDG directories immediately. This ensures
+# they exist before the next `stow .` symlinks into ~/.config, and
+# before any downstream tool looks up its XDG path.
 echo "📁 Setting up environment and creating directories..."
 source "$HOME/.zshenv"
 echo "✅ Environment configured"
@@ -108,6 +110,8 @@ else
     echo "✅ TPM already installed"
 fi
 
+# Verify TPM installation — both the loader (`tpm`) and the install
+# script must exist; the rest of this block depends on the latter.
 if [ -f "$TPM_DIR/tpm" ] && [ -f "$TPM_DIR/scripts/install_plugins.sh" ]; then
     echo "✅ TPM verification passed"
 else
