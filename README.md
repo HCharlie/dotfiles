@@ -4,11 +4,11 @@ Personal dotfiles managed with GNU Stow.
 
 ## Quick Setup
 
-1. Install Homebrew, Git, and GitHub CLI:
+1. Install Homebrew. macOS ships `git` via Xcode Command Line Tools,
+   which Homebrew's installer prompts to install on first run if missing
+   — no separate `brew install git` needed.
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew install git gh
-gh auth login
 ```
 
 2. Clone and run setup:
@@ -16,10 +16,15 @@ gh auth login
 # Pick any path you like. Example uses ~/src/github.com/<owner>/<repo>:
 DOTFILES_DIR="$HOME/src/github.com/HCharlie/dotfiles"
 mkdir -p "$(dirname "$DOTFILES_DIR")"
-gh repo clone HCharlie/dotfiles "$DOTFILES_DIR"
+git clone https://github.com/HCharlie/dotfiles "$DOTFILES_DIR"
 cd "$DOTFILES_DIR"
 ./setup.sh
 ```
+
+`gh` itself is installed later by `setup.sh` via the Brewfile for daily
+PR/issue work. Bootstrap uses plain `git clone` because the repo is
+public — no auth required. After setup, run `gh auth login` once when
+you first need it.
 
 3. Restart your terminal
 
