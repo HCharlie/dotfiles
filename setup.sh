@@ -63,15 +63,21 @@ echo "==========================================================================
 echo "🐚 Setting up Oh My Zsh..."
 echo "============================================================================"
 
+# Install Oh My Zsh under ZDOTDIR so it follows the XDG Base Dir spec
+# (ZDOTDIR is set by ~/.zshenv to $XDG_CONFIG_HOME/zsh).
 ZSH_DIR="$ZDOTDIR/ohmyzsh"
 if [ ! -d "$ZSH_DIR" ]; then
     echo "🐚 Installing Oh My Zsh to $ZSH_DIR..."
+    # ZSH       — install destination (instead of the default ~/.oh-my-zsh).
+    # RUNZSH=no — don't drop into a zsh subshell after install.
+    # KEEP_ZSHRC=yes — leave any existing .zshrc untouched (we manage it via stow).
     ZSH="$ZSH_DIR" RUNZSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     echo "✅ Oh My Zsh installed"
 else
     echo "✅ Oh My Zsh already installed"
 fi
 
+# Install zsh-autosuggestions into the same XDG-compliant tree.
 ZSH_CUSTOM="$ZSH_DIR/custom"
 if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
     echo "💡 Installing zsh-autosuggestions to $ZSH_CUSTOM/plugins..."
@@ -172,4 +178,8 @@ echo "🎉 Setup complete!"
 echo "============================================================================"
 echo ""
 echo "📝 Next steps:"
-echo "   1. Restart your terminal for environment variables to take effect"
+echo "   1. Restart your terminal so the new shell stack (Oh My Zsh,"
+echo "      atuin init, aliases, autosuggestions) loads."
+echo "   2. Run 'atuin register' or 'atuin login -u <user>' if you want"
+echo "      cross-machine history sync (see README.md)."
+echo "   3. Open Neovim once to let kickstart.nvim install its plugins."
