@@ -118,14 +118,22 @@ fi
 echo "🔄 Installing tmux plugins..."
 echo "📝 Starting temporary tmux session to load configuration..."
 
-# Kill any existing tmux server to ensure clean state
+# Kill any existing tmux server to ensure clean state.
 tmux kill-server 2>/dev/null || true
 
-# TPM needs a running tmux server to read plugin declarations from tmux.conf.
+# Start a detached tmux session so TPM can read its config. When tmux
+# starts it automatically:
+#   1. reads ~/.config/tmux/tmux.conf
+#   2. parses `set -g @plugin '...'` declarations
+#   3. executes `run tpm` at the end (loads any already-installed plugins)
+# install_plugins.sh below then queries this running server via
+# `tmux show-option` to learn which @plugin lines to install.
 tmux new-session -d -s setup_session 2>/dev/null || {
     echo "⚠️  Warning: Could not create tmux session, but continuing..."
 }
 
+# Give tmux a moment to initialize and finish reading the config before
+# install_plugins.sh starts querying it.
 sleep 1
 
 if [ -f "$TPM_DIR/scripts/install_plugins.sh" ]; then
