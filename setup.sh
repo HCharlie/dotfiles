@@ -95,21 +95,6 @@ echo "✅ Ghostty setup complete!"
 echo ""
 
 echo "============================================================================"
-echo "📜 Installing Atuin..."
-echo "============================================================================"
-if ! command -v atuin &> /dev/null; then
-    brew install atuin
-    echo "✅ Atuin installed"
-else
-    echo "✅ Atuin already installed"
-fi
-
-echo "✅ Atuin setup complete!"
-echo "ℹ️  To enable cross-machine history sync, see README.md → Post-Install → Atuin."
-echo "   Quick: 'atuin register' (first machine) or 'atuin login -u <user>' + 'atuin import auto'."
-echo ""
-
-echo "============================================================================"
 echo "🖥️  Setting up tmux and plugins..."
 echo "============================================================================"
 
@@ -220,6 +205,21 @@ else
 fi
 
 echo ""
+echo "============================================================================"
+echo "📜 Installing Atuin..."
+echo "============================================================================"
+if ! command -v atuin &> /dev/null; then
+    brew install atuin
+    echo "✅ Atuin installed"
+else
+    echo "✅ Atuin already installed"
+fi
+
+echo "✅ Atuin setup complete!"
+echo "ℹ️  To enable cross-machine history sync, see README.md → Post-Install → Atuin."
+echo "   Quick: 'atuin register' (first machine) or 'atuin login -u <user>' + 'atuin import auto'."
+echo ""
+
 echo "============================================================================"
 echo "🎉 Setup complete!"
 echo "============================================================================"
