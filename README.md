@@ -22,11 +22,6 @@ cd "$DOTFILES_DIR"
 ./setup.sh
 ```
 
-`gh` itself is installed later by `setup.sh` via the Brewfile for daily
-PR/issue work. Bootstrap uses plain `git clone` because the repo is
-public — no auth required. After setup, run `gh auth login` once when
-you first need it.
-
 3. Restart your terminal
 
 ## Design Notes
