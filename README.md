@@ -13,7 +13,8 @@ Personal dotfiles managed with GNU Stow.
 
 2. Clone and run setup:
 ```bash
-# Pick any path you like. Example uses ~/src/github.com/<owner>/<repo>:
+# DOTFILES_DIR can be any path. The example mirrors GitHub's namespace
+# under ~/src so multiple cloned repos stay organized side by side.
 DOTFILES_DIR="$HOME/src/github.com/HCharlie/dotfiles"
 mkdir -p "$(dirname "$DOTFILES_DIR")"
 git clone https://github.com/HCharlie/dotfiles "$DOTFILES_DIR"
