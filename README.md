@@ -11,10 +11,10 @@ Personal dotfiles managed with GNU Stow.
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-2. Clone and run setup:
+2. Clone and run setup. `DOTFILES_DIR` can be any path; the example
+   below mirrors GitHub's namespace under `~/src` so multiple cloned
+   repos stay organized side by side.
 ```bash
-# DOTFILES_DIR can be any path. The example mirrors GitHub's namespace
-# under ~/src so multiple cloned repos stay organized side by side.
 DOTFILES_DIR="$HOME/src/github.com/HCharlie/dotfiles"
 mkdir -p "$(dirname "$DOTFILES_DIR")"
 git clone https://github.com/HCharlie/dotfiles "$DOTFILES_DIR"
