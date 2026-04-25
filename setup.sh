@@ -11,20 +11,11 @@ echo "==========================================================================
 echo "🔍 Checking prerequisites..."
 echo "============================================================================"
 
-# Self-heal PATH: a freshly-installed Homebrew on Apple Silicon
-# (/opt/homebrew) or Intel (/usr/local) usually isn't on PATH until the
-# shell is restarted. If `brew` isn't found, probe both standard install
-# locations and source `brew shellenv` so the rest of this script and
-# any subprocess see brew/cellar binaries without a shell restart.
-if ! command -v brew &> /dev/null; then
-    for brew_path in /opt/homebrew/bin/brew /usr/local/bin/brew; do
-        if [ -x "$brew_path" ]; then
-            eval "$("$brew_path" shellenv)"
-            echo "ℹ️  Loaded Homebrew from $brew_path into PATH for this session."
-            break
-        fi
-    done
-fi
+# Apple Silicon installs Homebrew at /opt/homebrew, which isn't on the
+# default macOS PATH until the user restarts the shell. Source shellenv
+# directly when the binary is present so a fresh `brew install` followed
+# by `./setup.sh` works in the same session.
+[ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
 if ! command -v brew &> /dev/null; then
     echo "❌ Homebrew not found. Install it first:"
