@@ -27,6 +27,36 @@ cd "$DOTFILES_DIR"
 
 - [zsh layout](zsh/README.md) — kernel rc vs. `~/.zshrc` sandbox, why this split, migration tips.
 
+## Managing Tools (Brewfile)
+
+`Brewfile` is the declarative manifest of every CLI tool and GUI cask
+this dotfiles repo wants on a machine. `setup.sh` runs
+`brew bundle --file=Brewfile` so a fresh machine ends up with exactly
+those packages installed.
+
+Day-to-day workflow:
+
+```bash
+# Add a new tool: edit Brewfile, then re-run bundle.
+brew bundle --file=Brewfile
+
+# What's listed but missing?
+brew bundle check --file=Brewfile
+
+# What's installed but NOT in Brewfile (drift audit)?
+brew bundle cleanup --file=Brewfile
+
+# Actually uninstall the drift after reviewing:
+brew bundle cleanup --force --file=Brewfile
+
+# Regenerate Brewfile from current system state (rarely — defeats curation):
+brew bundle dump --force --describe --file=Brewfile
+```
+
+Experimental / one-off `brew install <tool>` keeps working — it just
+won't be tracked. `brew bundle cleanup` will surface it next audit so
+you can decide: promote to Brewfile, or uninstall.
+
 ## Post-Install
 
 ### Atuin (shell history sync)
