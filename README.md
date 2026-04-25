@@ -4,16 +4,20 @@ Personal dotfiles managed with GNU Stow.
 
 ## Quick Setup
 
-1. Install Homebrew and Git:
+1. Install Homebrew, Git, and GitHub CLI:
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew install git
+brew install git gh
+gh auth login
 ```
 
 2. Clone and run setup:
 ```bash
-git clone <repository-url> ~/dotfiles
-cd ~/dotfiles
+# Pick any path you like. Example uses ~/src/github.com/<owner>/<repo>:
+DOTFILES_DIR="$HOME/src/github.com/HCharlie/dotfiles"
+mkdir -p "$(dirname "$DOTFILES_DIR")"
+gh repo clone HCharlie/dotfiles "$DOTFILES_DIR"
+cd "$DOTFILES_DIR"
 ./setup.sh
 ```
 
