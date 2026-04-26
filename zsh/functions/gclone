@@ -1,4 +1,5 @@
 local url="$1"
+shift
 # Strip protocol, trailing .git, and trailing slashes
 local repo_path="${url#https://}"
 repo_path="${repo_path#http://}"
@@ -16,5 +17,5 @@ if [[ -d "$target" ]]; then
 fi
 
 /bin/mkdir -p "${target%/*}"
-git clone "$url" "$target"
+git clone "$@" "$url" "$target"
 
