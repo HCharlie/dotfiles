@@ -18,6 +18,7 @@ brew "atuin"
 # Editor
 # ---------------------------------------------------------------------------
 brew "neovim"
+brew "tree-sitter-cli"  # parser generator (neovim treesitter)
 
 # ---------------------------------------------------------------------------
 # Terminal multiplexer
@@ -54,6 +55,35 @@ brew "glow"       # render markdown in terminal
 # Environment management
 # ---------------------------------------------------------------------------
 brew "direnv"     # per-directory env vars
+brew "mise"       # polyglot runtime/tool version manager
+brew "uv"         # python package/project manager
+
+# ---------------------------------------------------------------------------
+# Language runtimes
+# ---------------------------------------------------------------------------
+tap "oven-sh/bun"
+brew "bun"        # JS runtime + bundler + package manager
+
+# ---------------------------------------------------------------------------
+# AI / LLM
+# ---------------------------------------------------------------------------
+brew "ollama"     # run LLMs locally
+
+# ---------------------------------------------------------------------------
+# Containers
+# ---------------------------------------------------------------------------
+brew "dive"            # explore docker image layers
+
+# ---------------------------------------------------------------------------
+# Kubernetes
+# ---------------------------------------------------------------------------
+brew "kubernetes-cli"  # kubectl
+brew "kubectx"         # context/namespace switcher
+
+# ---------------------------------------------------------------------------
+# Google Workspace
+# ---------------------------------------------------------------------------
+brew "googleworkspace-cli"  # gws — Drive/Gmail/Calendar/Docs CLI
 
 # ---------------------------------------------------------------------------
 # GUI apps (casks)
@@ -67,3 +97,5 @@ cask "obsidian"
 cask "kreya"
 cask "utm"
 cask "obs"
+cask "orbstack"
+cask "visual-studio-code"
