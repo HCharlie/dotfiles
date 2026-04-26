@@ -15,3 +15,6 @@ if [[ ! -e ~/.zshrc ]]; then
   chmod 600 ~/.zshrc
 fi
 
+# Rust toolchain (rustup-managed). Guarded so a fresh machine — where
+# setup.sh hasn't run rustup yet — doesn't error on every shell startup.
+[[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"

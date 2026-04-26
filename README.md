@@ -68,3 +68,7 @@ prompt, not an instruction to uninstall.
 
 The full curated list of CLI tools and casks lives in [`Brewfile`](Brewfile).
 `setup.sh` applies it via `brew bundle` on a fresh machine.
+
+The Rust toolchain is installed separately by `setup.sh` via the official
+[rustup](https://rustup.rs) installer (not Brewfile — see the comment in
+`Brewfile` for why). Update with `rustup update`.

@@ -62,6 +62,21 @@ section "📦 Installing tools and apps from Brewfile..."
 brew bundle --file="$SCRIPT_DIR/Brewfile"
 echo "✅ Brewfile applied"
 
+section "🦀 Installing Rust toolchain (rustup)..."
+
+# Rust is intentionally NOT in Brewfile — rustup manages its own
+# toolchain updates (`rustup update`), and a brew-installed rustup-init
+# would compete with rustup for ownership of ~/.cargo/bin.
+if [[ ! -x "$HOME/.cargo/bin/rustup" ]]; then
+    echo "📦 Installing rustup..."
+    # -y: non-interactive (default toolchain, default profile).
+    # --no-modify-path: ~/.zshenv already sources ~/.cargo/env.
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+    echo "✅ rustup installed"
+else
+    echo "✅ rustup already installed"
+fi
+
 section "🐚 Setting up Oh My Zsh..."
 
 # Install Oh My Zsh under ZDOTDIR so it follows the XDG Base Dir spec
