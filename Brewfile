@@ -59,16 +59,6 @@ brew "mise"       # polyglot runtime/tool version manager
 brew "uv"         # python package/project manager
 
 # ---------------------------------------------------------------------------
-# Language runtimes
-# ---------------------------------------------------------------------------
-tap "oven-sh/bun"
-brew "bun"        # JS runtime + bundler + package manager
-
-# Rust is intentionally NOT here. rustup manages its own toolchain
-# updates and owns ~/.cargo/bin; a brew-installed rustup-init would
-# fight it. setup.sh installs rustup directly via https://sh.rustup.rs.
-
-# ---------------------------------------------------------------------------
 # AI / LLM
 # ---------------------------------------------------------------------------
 brew "ollama"     # run LLMs locally
