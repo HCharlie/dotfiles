@@ -75,6 +75,11 @@ brew "kubernetes-cli"  # kubectl
 brew "kubectx"         # context/namespace switcher
 
 # ---------------------------------------------------------------------------
+# gRPC
+# ---------------------------------------------------------------------------
+brew "grpcurl"        # gRPC CLI client
+
+# ---------------------------------------------------------------------------
 # Google Workspace
 # ---------------------------------------------------------------------------
 brew "googleworkspace-cli"  # gws — Drive/Gmail/Calendar/Docs CLI
