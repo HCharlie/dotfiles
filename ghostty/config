@@ -17,4 +17,7 @@ macos-option-as-alt = true
 scrollback-limit = 20000
 
 desktop-notifications = true
+bell-features = audio,attention,title
+bell-audio-path = /System/Library/Sounds/Glass.aiff
+bell-audio-volume = 0.5
 
