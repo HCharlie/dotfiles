@@ -110,6 +110,23 @@ Restore on a new machine via `atuin key set "<mnemonic>"`.
   search result executes immediately. Use `Tab` to select without
   executing if you want to edit first.
 
+## Shortcuts (TUI)
+
+Avoid the arrow keys.
+
+| Key | Action |
+|---|---|
+| `Ctrl+P` / `Ctrl+N` | Prev / next result (emacs keymap, default) |
+| `k` / `j` | Prev / next result (vim keymap; set `keymap_mode = "vim-normal"`) |
+| `Ctrl+U` / `Ctrl+D` | Page up / down |
+| `Alt+1`..`Alt+9` | Jump to Nth visible result |
+| `Tab` | Paste selected to prompt (don't execute) |
+| `Enter` | Execute selected (`enter_accept = true`) |
+| `Ctrl+R` (in TUI) | Cycle filter mode: global → host → session → directory |
+| `Ctrl+S` | Cycle search mode: prefix → fulltext → fuzzy → skim |
+| `Ctrl+O` | Toggle Inspector (timing, exit code, cwd) |
+| `Esc` | Exit TUI |
+
 ## Related
 
 - Upstream docs: <https://docs.atuin.sh>
