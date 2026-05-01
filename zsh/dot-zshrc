@@ -72,11 +72,11 @@ HIST_STAMPS="yyyy-mm-dd"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    asdf
-	git
-	zsh-autosuggestions
-    kube-ps1
-    direnv
+  asdf
+  git
+  zsh-autosuggestions
+  kube-ps1
+  direnv
 )
 
 # User configuration
@@ -97,6 +97,12 @@ export SAVEHIST=10000
 # Source after the ZSH envs are validated, otherwise the compdump file will created twice.
 source $ZSH/oh-my-zsh.sh
 
+# Vim-style line editing. Esc -> normal mode, then hjkl etc.
+bindkey -v
+export KEYTIMEOUT=1   # 10ms; snappier Esc switch without breaking Alt-chords
+
+Accept zsh-autosuggestions: Alt+L (vim flavor: l = right). No conflicts.
+bindkey -M viins '^[l' autosuggest-accept
 
 
 
