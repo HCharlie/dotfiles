@@ -6,8 +6,9 @@ export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
 # Create directories
-mkdir -p "$XDG_CONFIG_HOME" "$XDG_DATA_HOME" "$XDG_STATE_HOME" "$XDG_CACHE_HOME" "$ZDOTDIR"
-mkdir -p "$XDG_DATA_HOME/zsh" # for HISTFILE
+# use /bin/mkdir to avoid PATH issues
+/bin/mkdir -p "$XDG_CONFIG_HOME" "$XDG_DATA_HOME" "$XDG_STATE_HOME" "$XDG_CACHE_HOME" "$ZDOTDIR"
+/bin/mkdir -p "$XDG_DATA_HOME/zsh" # for HISTFILE
 
 # Local overrides + secrets + tool-installer dumping ground (untracked, 600).
 if [[ ! -e ~/.zshrc ]]; then
