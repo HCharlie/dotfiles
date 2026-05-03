@@ -62,6 +62,17 @@ section "📦 Installing tools and apps from Brewfile..."
 brew bundle --file="$SCRIPT_DIR/Brewfile"
 echo "✅ Brewfile applied"
 
+section "🐙 GitHub CLI extensions..."
+
+# Brew bundle has no DSL for `gh extension install`; run after `gh` is on PATH.
+if command -v gh &> /dev/null; then
+    echo "📦 Ensuring gh-dash is installed..."
+    gh extension install dlvhdr/gh-dash --force || echo "⚠️  gh extension install failed — try: gh extension install dlvhdr/gh-dash"
+    echo "✅ gh extensions step finished"
+else
+    echo "⚠️  gh not found — skipping gh extensions"
+fi
+
 section "🦀 Installing Rust toolchain (rustup)..."
 
 # Rust is intentionally NOT in Brewfile — rustup manages its own

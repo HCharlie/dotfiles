@@ -6,7 +6,7 @@
 # ---------------------------------------------------------------------------
 # Bootstrap (also referenced from setup.sh)
 # ---------------------------------------------------------------------------
-brew "gh"
+brew "gh"       # gh-dash (`gh dash`): installed post-bundle — setup.sh runs `gh extension install dlvhdr/gh-dash`
 brew "stow"
 
 # ---------------------------------------------------------------------------
