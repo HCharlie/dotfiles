@@ -101,8 +101,6 @@ source $ZSH/oh-my-zsh.sh
 bindkey -v
 export KEYTIMEOUT=1   # 10ms; snappier Esc switch without breaking Alt-chords
 
-# Accept zsh-autosuggestions: Alt+L (vim flavor: l = right). No conflicts.
-bindkey -M viins '^[l' autosuggest-accept
 
 # another idea is to keep emacs chords usable inside vi insert mode (no Esc needed for these).
 # bindkey -M viins '^A' beginning-of-line
